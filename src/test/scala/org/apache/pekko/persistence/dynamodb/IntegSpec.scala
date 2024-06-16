@@ -9,14 +9,16 @@
 
 package org.apache.pekko.persistence.dynamodb
 
-import com.dimafeng.testcontainers.{ FixedHostPortGenericContainer, ForAllTestContainer }
+import com.dimafeng.testcontainers.FixedHostPortGenericContainer
+import com.dimafeng.testcontainers.scalatest.TestContainerForAll
 import org.scalatest.Suite
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy
 
 /**
  * Base spec for tests that verify integration with DynamoDB.
  */
-trait IntegSpec extends ForAllTestContainer { self: Suite =>
+trait IntegSpec extends TestContainerForAll { self: Suite =>
+
   // TODO: Use dynamic ports. This is a annoying to do as the actor system is init prior to beforeAll.
   override val container: FixedHostPortGenericContainer = FixedHostPortGenericContainer(
     "amazon/dynamodb-local:1.22.0",
